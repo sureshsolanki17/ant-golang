@@ -1,14 +1,20 @@
 package antgolang
 
+import "strings"
+
 type AntApp struct {
 	Authorization string
+	Exchange      string
 }
 
-func New() AntApp {
-	return AntApp{}
+func New(exchange string) AntApp {
+	app := AntApp{
+		Authorization: "",
+		Exchange:      strings.ToUpper(exchange),
+	}
+	return app
 }
 
-func (an *AntApp) SetToken(userId, token string) {
-	Authorization = "Bearer " + userId + " " + token
-	an.Authorization = Authorization
+func (app *AntApp) SetToken(userId, token string) {
+	app.Authorization = "Bearer " + userId + " " + token
 }

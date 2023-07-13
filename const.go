@@ -7,7 +7,6 @@ import (
 	"time"
 )
 
-var Authorization string
 var CurrentTime time.Time = time.Now()
 
 const (
@@ -16,10 +15,19 @@ const (
 	// Products
 
 	// Order types
+	OrderTypeMarket = "MARKET"
+	OrderTypeLimit  = "LIMIT"
+	OrderTypeSL     = "SL"
+	OrderTypeSLM    = "SL-M"
 
 	// Validities
+	ValidityDay = "DAY"
+	ValidityIOC = "IOC"
+	ValidityTTL = "TTL"
 
 	// Position Type
+	PositionTypeDay       = "day"
+	PositionTypeOvernight = "overnight"
 
 	// Transaction type
 	TransactionTypeBuy  = "BUY"
@@ -35,6 +43,8 @@ const (
 	ExchangeBCD = "BCD"
 
 	// Margins segments
+	MarginsEquity    = "equity"
+	MarginsCommodity = "commodity"
 
 	// Order status
 	OrderStatusComplete  = "COMPLETE"
@@ -42,16 +52,19 @@ const (
 	OrderStatusCancelled = "CANCELLED"
 )
 
+// API endpoints
 const (
-	URLAccountDetails = "customer/accountDetails"
-	URLGetRmsLimits   = "limits/getRmsLimits"
+	URLAccountDetails    = "customer/accountDetails"
+	URLGetRmsLimits      = "limits/getRmsLimits"
+	URLPositionBook      = "positionAndHoldings/positionBook"
+	URLHoldings          = "positionAndHoldings/holdings"
+	URLExecutePlaceOrder = "placeOrder/executePlaceOrder"
+	URLHistory           = "chart/history"
 )
 
 func GinGet(url, token string) ([]byte, error) {
-	u := baseURI + url
-
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", u, nil)
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		fmt.Println("Error creating request:", err)
 		panic(err)

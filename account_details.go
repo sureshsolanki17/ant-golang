@@ -16,7 +16,7 @@ type AccountDetailsResponse struct {
 	ExchEnabled   string   `json:"exchEnabled"`
 }
 
-func (app *AntApp) AccountDetails() (*AccountDetailsResponse, error) {
+func (app *AntApp) GetProfile() (*AccountDetailsResponse, error) {
 	body, err := GinGet(URLAccountDetails, app.Authorization)
 	if err != nil {
 		return nil, err

@@ -3,7 +3,9 @@ package antgolang
 import "encoding/json"
 
 func (app *AntApp) GetRmsLimits() (*[]GetRmsLimitsResponse, error) {
-	body, err := GinGet(URLGetRmsLimits, app.Authorization)
+	u := baseURI + URLGetRmsLimits
+	
+	body, err := GinGet(u, app.Authorization)
 	if err != nil {
 		return nil, err
 	}
