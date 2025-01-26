@@ -87,3 +87,5 @@ func GinGet(url, token string) ([]byte, error) {
 
 	return body, nil
 }
+
+// GinPost sends a POST request to the given URL with the given token and body
