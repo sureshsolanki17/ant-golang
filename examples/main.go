@@ -1,0 +1,35 @@
+package main
+
+import (
+	"fmt"
+	"log"
+
+	"github.com/sureshsolanki17/ant-golang/service"
+)
+
+func main() {
+	config := service.Config{
+		BaseURL:  "https://ant.aliceblueonline.com/rest/AliceBlueAPIService/api/",
+		Exchange: "NSE",
+	}
+
+	if err := config.Validate(); err != nil {
+		log.Fatalf("Error validating config: %v", err)
+	}
+
+	app := service.NewConfig(config)
+
+	userID := "932660"
+	app.SetToken(userID, ApiSestion)
+
+	response, err := app.Holdings()
+	if err != nil {
+		log.Fatalf("Error making request: %v", err)
+	}
+
+	fmt.Println(response)
+}
+
+var ApiKey = "lcnCr18IQ1XWllpZAdWcRp9a4myYkBJH4qJFbMcpR9V2ZIrTb0UsrXPUH5GzquEi1NcaKeS4DLbTTOP2hz8tBI5xQiEY3fvbgIm962jxGMj0EfCYpSq0nrJutKoAkXe6"
+
+var ApiSestion = "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyam9lOFVScGxZU3FTcDB3RDNVemVBQkgxYkpmOE4wSDRDMGVVSWhXUVAwIn0.eyJleHAiOjE3NDUxNjAzMzIsImlhdCI6MTczOTk3NjM0NiwianRpIjoiMDMzNWJkMmMtNmNhOS00MWIzLThiNWItZGYyMGMwYmJlNDhlIiwiaXNzIjoiaHR0cHM6Ly9pZGFhcy5hbGljZWJsdWVvbmxpbmUuY29tL2lkYWFzL3JlYWxtcy9BbGljZUJsdWUiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMWNmOGI1NWUtMjUwOS00OWY5LWIwOTgtNDYyYTFkY2YyNzM2IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYWxpY2Uta2IiLCJzaWQiOiI3NGYwZjEyNC1lNDEzLTQ2MTItYmZjOC1iYjdjM2MwZjE3MDMiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDozMDAyIiwiaHR0cDovL2xvY2FsaG9zdDo1MDUwIiwiaHR0cDovL2xvY2FsaG9zdDo5OTQzIiwiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtYWxpY2VibHVla2IiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFsaWNlLWtiIjp7InJvbGVzIjpbIkdVRVNUX1VTRVIiLCJBQ1RJVkVfVVNFUiJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIG9wZW5pZCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJ1Y2MiOiI5MzI2NjAiLCJjbGllbnRSb2xlIjpbIkdVRVNUX1VTRVIiLCJBQ1RJVkVfVVNFUiJdLCJuYW1lIjoiU09MQU5LSSBTQVZKSUJIQUkiLCJtb2JpbGUiOiI3NjIyOTM5MjgzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiOTMyNjYwIiwiZ2l2ZW5fbmFtZSI6IlNPTEFOS0kiLCJmYW1pbHlfbmFtZSI6IlNBVkpJQkhBSSIsImVtYWlsIjoic3VyZXNzc29sYW5raUBnbWFpbC5jb20ifQ.KGyMWqzZyzDegrjzB6uhHuUojooxf0qqkKRfhutx-eaTYCKKFHkb8m7vgg3v0R9YwHKCPGNvU3w9D7mGnq3l49kP0MkiewKTewicuqaT2xV6k7-7ep9ycPY7surAll3gvJO59MlOPJYPJE6ZkQnR7qJFkSF8ZIOsnL5cyH2OuAhn-hQsyTT8wa55t_NXIlBBWpNB1BpMJlGGu-mczJAilsqy2osv_3y32-Mpe7saaSgbSbgKFfVpC2a7PCWEvih3G8GNUJ2FhmnL3w7Sg-dplEv3ms229EKjjlYqi-fp57rMHnxY_ai6zFxllTOfTYcuh10cZxTiRoDK4R_ruRTyYQ"
