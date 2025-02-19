@@ -1,13 +1,15 @@
-package antgolang
+package service
 
 import (
 	"encoding/json"
 	"io"
 	"net/http"
+
+	constants "github.com/sureshsolanki17/ant-golang/const"
 )
 
 func (app *AntApp) ContractMaster() (*[]StockData, error) {
-	url := contractURL + app.Exchange
+	url := constants.ContractURL + app.Exchange
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -28,7 +30,9 @@ func (app *AntApp) ContractMaster() (*[]StockData, error) {
 		}
 
 		return &data.NSE, nil
-	} else {
+	}
+
+	if app.Exchange == "BSE" {
 		var data *ContractMasterBSEResponse
 		err = json.Unmarshal(body, &data)
 		if err != nil {
@@ -37,10 +41,12 @@ func (app *AntApp) ContractMaster() (*[]StockData, error) {
 
 		return &data.BSE, nil
 	}
+
+	return nil, nil
 }
 
 func (app *AntApp) ContractINDICES(ExchangeType string) (*[]Stock, error) {
-	url := contractURL + "INDICES"
+	url := constants.BaseURL + "INDICES"
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {

@@ -1,0 +1,1075 @@
+{
+	"info": {
+		"_postman_id": "77b01656-87d0-4718-9678-0d7cdc7b7cb1",
+		"name": "Aliceblue_Postman_collection Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentcation",
+			"item": [
+				{
+					"name": "Get Encryption key",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}customer/getAPIEncpkey",
+							"host": [
+								"{{BASE_URL}}customer"
+							],
+							"path": [
+								"getAPIEncpkey"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Session ID",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\":\"\",\n  \"userData\":\"\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}customer/getUserSID",
+							"host": [
+								"{{BASE_URL}}customer"
+							],
+							"path": [
+								"getUserSID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogOut From API",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "COD001 DYmzLv5WZ0ZuPGyJDkrCgeiI2F9P704EFuYMvAX0aX71nAJ1Vx9UJOiRrEP0RokK1x5RgCg6t9gDZ2b5LXbLBh682K1vggRlqWRujVuLo1l5pSOXyV3zk9GxnPdlQl0gcc5I3JOdev1JxMiNCMahQQnQXGbLjrS9rdlhjk0MM2mTfMvpoM701h2nS4JWKWNclqnvYTGIeAJOCPc8Vj8Isy4OU1PRPDb6G3A7O8y4iZWviMZMulNnpM69NbLrmFD6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}customer/logout",
+							"host": [
+								"{{BASE_URL}}customer"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogOut from All Device",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}customer/logOutFromAllDevice",
+							"host": [
+								"{{BASE_URL}}customer"
+							],
+							"path": [
+								"logOutFromAllDevice"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Market Watch",
+			"item": [
+				{
+					"name": "Search Scrips",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"symbol\":\"tcs\",\n\t\"exchange\": [\"All\", \"NSE\",\"BSE\", \"CDS\", \"MCX\", \"NFO\"]\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}exchange/getScripForSearch",
+							"host": [
+								"{{BASE_URL}}exchange"
+							],
+							"path": [
+								"getScripForSearch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Market Watch List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BASE_URL}}marketWatch/fetchMWList",
+							"host": [
+								"{{BASE_URL}}marketWatch"
+							],
+							"path": [
+								"fetchMWList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Market Watch Scrips",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"mwName\":\"mwGrpFd\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}marketWatch/fetchMWScrips",
+							"host": [
+								"{{BASE_URL}}marketWatch"
+							],
+							"path": [
+								"fetchMWScrips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Scrips",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"mwName\":\"mwGrpeN\",\n\t\"exch\":\"NSE\",\n\t\"symbol\":\"212\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}marketWatch/addScripToMW",
+							"host": [
+								"{{BASE_URL}}marketWatch"
+							],
+							"path": [
+								"addScripToMW"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Scrips",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"mwName\":\"mwGrpeN\",\n\t\"exch\":\"NSE\",\n\t\"symbol\":\"212\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}marketWatch/deleteMWScrip",
+							"host": [
+								"{{BASE_URL}}marketWatch"
+							],
+							"path": [
+								"deleteMWScrip"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Scrips Details",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"exch\":\"NSE\",\n\t\"symbol\":\"212\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}ScripDetails/getScripQuoteDetails",
+							"host": [
+								"{{BASE_URL}}ScripDetails"
+							],
+							"path": [
+								"getScripQuoteDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Open Interest",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"\",\n    \"scripList\": \"nse_cm|212,nse_cm|11536\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}marketWatch/scripsMW",
+							"host": [
+								"{{BASE_URL}}marketWatch"
+							],
+							"path": [
+								"scripsMW"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Price Range and Best Buy and Best Sell",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"exch\": \"NSE\",\n    \"symbol\": \"212\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}ScripDetails/getPriceRange",
+							"host": [
+								"{{BASE_URL}}ScripDetails"
+							],
+							"path": [
+								"getPriceRange"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order Management",
+			"item": [
+				{
+					"name": "Position Book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ret\": \"DAY\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}positionAndHoldings/positionBook",
+							"host": [
+								"{{BASE_URL}}positionAndHoldings"
+							],
+							"path": [
+								"positionBook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Square off Position",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"exchSeg\":\"nse_cm\",\r\n  \"pCode\":\"MIS\",\r\n  \"netQty\":\"0\",\r\n  \"tockenNo\":\"212\",\r\n  \"symbol\":\"ASHOKLEY\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}positionAndHoldings/sqrOofPosition",
+							"host": [
+								"{{BASE_URL}}positionAndHoldings"
+							],
+							"path": [
+								"sqrOofPosition"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Place Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"complexty\": \"regular\",\r\n    \"discqty\": \"0\",\r\n    \"exch\": \"NSE\",\r\n    \"pCode\": \"mis\",\r\n    \"prctyp\": \"L\",\r\n    \"price\": \"\",\r\n    \"qty\": 1,\r\n    \"ret\": \"DAY\",\r\n    \"symbol_id\": \"212\",\r\n    \"trading_symbol\": \"ASHOKLEY-EQ\",\r\n    \"transtype\": \"BUY\",\r\n    \"trigPrice\": \"\"\r\n  }\r\n]"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}placeOrder/executePlaceOrder",
+							"host": [
+								"{{BASE_URL}}placeOrder"
+							],
+							"path": [
+								"executePlaceOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bracket Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"complexty\": \"bo\",\r\n    \"discqty\": \"0\",\r\n    \"exch\": \"NSE\",\r\n    \"pCode\": \"mis\",\r\n    \"prctyp\": \"SL\",\r\n    \"price\": \"1454.9\",\r\n    \"qty\": 8,\r\n    \"ret\": \"DAY\",\r\n    \"stopLoss\": 28.8,\r\n    \"symbol_id\": \"13611\",\r\n    \"target\": 28.0,\r\n    \"trading_symbol\": \"IRCTC-EQ\",\r\n    \"trailing_stop_loss\": 3.5,\r\n    \"transtype\": \"buy\",\r\n    \"trigPrice\": \"1450.9\"\r\n  }\r\n]"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}placeOrder/executePlaceOrder",
+							"host": [
+								"{{BASE_URL}}placeOrder"
+							],
+							"path": [
+								"executePlaceOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OrderBook",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BASE_URL}}placeOrder/fetchOrderBook",
+							"host": [
+								"{{BASE_URL}}placeOrder"
+							],
+							"path": [
+								"fetchOrderBook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trade Book",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BASE_URL}}placeOrder/fetchTradeBook",
+							"host": [
+								"{{BASE_URL}}placeOrder"
+							],
+							"path": [
+								"fetchTradeBook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"discqty\":0,\n\"exch\": \"NSE\",\n\"filledQuantity\":0,\n\"nestOrderNumber\": \"191015000018737\",\n\"prctyp\": \"L\",\n\"price\": \"64\",\n\"qty\": 1,\n\"trading_symbol\": \"ASHOKLEY-EQ\",\n\"trigPrice\": \"00.00\",\n\"transtype\":\"BUY\",\n\"pCode\":\"MKT\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}placeOrder/modifyOrder",
+							"host": [
+								"{{BASE_URL}}placeOrder"
+							],
+							"path": [
+								"modifyOrder"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Market Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"complexty\": \"regular\",\r\n    \"discqty\": \"0\",\r\n    \"exch\": \"NSE\",\r\n    \"pCode\": \"mis\",\r\n    \"prctyp\": \"MKT\",\r\n    \"price\": \"\",\r\n    \"qty\": 1,\r\n    \"ret\": \"DAY\",\r\n    \"symbol_id\": \"212\",\r\n    \"trading_symbol\": \"ASHOKLEY-EQ\",\r\n    \"transtype\": \"BUY\",\r\n    \"trigPrice\": \"\"\r\n  }\r\n]"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}placeOrder/executePlaceOrder",
+							"host": [
+								"{{BASE_URL}}placeOrder"
+							],
+							"path": [
+								"executePlaceOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"exch\": \"NSE\",\n\"nestOrderNumber\": \"191015000018737\",\n\"trading_symbol\": \"ASHOKLEY-EQ\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}placeOrder/cancelOrder",
+							"host": [
+								"{{BASE_URL}}placeOrder"
+							],
+							"path": [
+								"cancelOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order History",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nestOrderNumber\": \"200628000000004\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}placeOrder/orderHistory",
+							"host": [
+								"{{BASE_URL}}placeOrder"
+							],
+							"path": [
+								"orderHistory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Holdings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}positionAndHoldings/holdings",
+							"host": [
+								"{{BASE_URL}}positionAndHoldings"
+							],
+							"path": [
+								"holdings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exit BO Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nestOrderNumber\":\"200626000052824\",\r\n    \"symbolOrderId\":\"\",\r\n    \"status\":\"open\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}placeOrder/exitBracketOrder",
+							"host": [
+								"{{BASE_URL}}placeOrder"
+							],
+							"path": [
+								"exitBracketOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exit Cover order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nestOrderNumber\":\"200630000046084\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}placeOrder/exitCoverOrder",
+							"host": [
+								"{{BASE_URL}}placeOrder"
+							],
+							"path": [
+								"exitCoverOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Place CO order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n   {\r\n      \"complexty\":\"co\",\r\n      \"discqty\":\"0\",     \r\n      \"exch\":\"MCX\",\r\n      \"pCode\":\"CO\",\r\n      \"prctyp\":\"L\",\r\n      \"price\":49100,\r\n      \"qty\":1,      \r\n      \"ret\":\"DAY\",\r\n      \"stopLoss\":\"\",\r\n      \"symbol_id\":\"217406\",\r\n      \"trading_symbol\":\"SILVERMIC20AUGFUT\",\r\n      \"trailing_stop_loss\":0,\r\n      \"transtype\":\"buy\",\r\n      \"trigPrice\":49000  \r\n     \r\n   }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}placeOrder/executePlaceOrder",
+							"host": [
+								"{{BASE_URL}}placeOrder"
+							],
+							"path": [
+								"executePlaceOrder"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Funds",
+			"item": [
+				{
+					"name": "Get Limits",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BASE_URL}}limits/getRmsLimits",
+							"host": [
+								"{{BASE_URL}}limits"
+							],
+							"path": [
+								"getRmsLimits"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chart(Historical Data)",
+			"item": [
+				{
+					"name": "Historical Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"token\":\"212\",\n\t\"resolution\":\"5\",\n\t\"from\":\"1544882298\",\n\t\"to\":\"1547783099\",\n\t\"exchange\":\"NSE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}chart/history",
+							"host": [
+								"{{BASE_URL}}chart"
+							],
+							"path": [
+								"history"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contract Master",
+			"item": [
+				{
+					"name": "Tendor Period",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"exch\": \"NSE\",\r\n    \"symbol\": \"438\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}ScripDetails/getSecurityInfo",
+							"host": [
+								"{{BASE_URL}}ScripDetails"
+							],
+							"path": [
+								"getSecurityInfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Link for Contract Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n\t\"exch\":\"NSE_FO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}contract/getMasterContractsCSVLink",
+							"host": [
+								"{{BASE_URL}}contract"
+							],
+							"path": [
+								"getMasterContractsCSVLink"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Account Details",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer USER_ID SESSION_TOKEN"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}customer/accountDetails",
+							"host": [
+								"{{BASE_URL}}customer"
+							],
+							"path": [
+								"accountDetails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Square off Positions",
+			"item": [
+				{
+					"name": "Square off all Positions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BASE_URL}}positionAndHoldings/squareOffAllPositions",
+							"host": [
+								"{{BASE_URL}}positionAndHoldings"
+							],
+							"path": [
+								"squareOffAllPositions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "square Off Positions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer USER_ID SESSION_TOKEN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"scripToken\":\"14003\",\r\n        \"pCode\":\"MIS\"\r\n    },\r\n    {\r\n         \"scripToken\":\"212\",\r\n        \"pCode\":\"CNC\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}positionAndHoldings/squareOffPositions",
+							"host": [
+								"{{BASE_URL}}positionAndHoldings"
+							],
+							"path": [
+								"squareOffPositions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "https://ant.aliceblueonline.com/rest/AliceBlueAPIService/api/"
+		}
+	]
+}

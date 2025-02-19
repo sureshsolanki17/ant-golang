@@ -8,6 +8,8 @@ import (
 	"net/http"
 )
 
+var baseURI = ""
+
 func (app *AntApp) ChartHistory(token, resolution, fromDate, toDate string) (*ChartHistoryResponse, error) {
 	url := baseURI + URLHistory
 

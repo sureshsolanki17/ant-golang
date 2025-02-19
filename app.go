@@ -7,12 +7,12 @@ type AntApp struct {
 	Exchange      string
 }
 
-func New(exchange string) AntApp {
+func New(exchange string) *AntApp {
 	app := AntApp{
 		Authorization: "",
 		Exchange:      strings.ToUpper(exchange),
 	}
-	return app
+	return &app
 }
 
 func (app *AntApp) SetToken(userId, token string) {

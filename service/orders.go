@@ -1,4 +1,4 @@
-package antgolang
+package service
 
 import (
 	"bytes"
@@ -6,10 +6,12 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	constants "github.com/sureshsolanki17/ant-golang/const"
 )
 
 func (app *AntApp) ExecutePlaceOrder() (*[]ExecutePlaceOrderResponse, error) {
-	url := baseURI + URLExecutePlaceOrder
+	url := constants.BaseURL + constants.URLExecutePlaceOrder
 
 	requestBody := ExecutePlaceOrderBody{
 		Discqty:       "",
