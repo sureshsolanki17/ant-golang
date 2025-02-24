@@ -10,6 +10,35 @@ import (
 	constants "github.com/sureshsolanki17/ant-golang/const"
 )
 
+type PositionBookBody struct {
+	Ret string `json:"ret"`
+}
+
+func (app *AntApp) PositionBook(DAY string) (*string, error) {
+	u := constants.BaseURL + constants.URLPositionBook
+
+	requestBody := PositionBookBody{
+		Ret: DAY,
+	}
+	
+	jsonBody, err := json.Marshal(requestBody)
+	if err != nil {
+		fmt.Println("Error marshaling request body:", err)
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", u, bytes.NewBuffer(jsonBody))
+	if err != nil {
+		fmt.Println("Error creating request:", err)
+		return nil, err
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", app.Authorization)
+
+	return nil, nil
+}
+
 func (app *AntApp) ExecutePlaceOrder() (*[]ExecutePlaceOrderResponse, error) {
 	url := constants.BaseURL + constants.URLExecutePlaceOrder
 

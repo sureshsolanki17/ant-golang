@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net/http"
+	"strings"
 
 	constants "github.com/sureshsolanki17/ant-golang/const"
 )
@@ -78,19 +80,29 @@ func (app *AntApp) GetFund() ([]GetRmsLimitsResponse, error) {
 
 func (app *AntApp) Holdings() (*HoldingsResponse, error) {
 	u := constants.BaseURL + constants.URLHoldings
-
-	resp, err := app.MakeRequest("GET", u, "")
+	req, err := http.NewRequest("GET", u, strings.NewReader(""))
 	if err != nil {
-		log.Fatalf("Error placing order: %v", err)
-	}
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println("Error reading response:", err)
 		return nil, err
 	}
-	fmt.Printf("body: %v\n", body)
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("Authorization", app.Authorization)
+
+	client := &http.Client{}
+	response, err := client.Do(req)
+	if err != nil {
+		log.Fatalf("Error making request: %v", err)
+	}
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusOK {
+		log.Fatalf("Request failed with status code: %d", response.StatusCode)
+	}
+
+	// Read the response body
+	body, err := io.ReadAll(response.Body)
+	if err != nil {
+		log.Fatalf("Error reading response body: %v", err)
+	}
+
 	var data *HoldingsResponse
 	err = json.Unmarshal(body, &data)
 	if err != nil {

@@ -9,6 +9,8 @@ import (
 
 // Config contains the configuration for initializing the AntApp client
 type Config struct {
+	APIKey   string
+	UserId   string
 	Exchange string // Name of the exchange (e.g., NSE, BSE, etc.)
 	BaseURL  string // Base URL for the API
 }

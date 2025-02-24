@@ -63,4 +63,6 @@ const (
 	URLHoldings          = "positionAndHoldings/holdings"
 	URLExecutePlaceOrder = "placeOrder/executePlaceOrder"
 	URLHistory           = "chart/history"
+	URLGetAPIEncpkey     = "customer/getAPIEncpkey"
+	URLGetUserSID        = "customer/getUserSID"
 )
