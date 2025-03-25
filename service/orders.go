@@ -8,7 +8,12 @@ import (
 	"net/http"
 
 	constants "github.com/sureshsolanki17/ant-golang/const"
+	"github.com/sureshsolanki17/ant-golang/utils"
 )
+
+func (app *AntApp) BuyWithLimit(symbolID, tradingSymbol, price string, quantity int) {
+	utils.PlaceOrder(app, constants.OrderTypeLimit, price, symbolID, tradingSymbol, constants.TransactionTypeBuy, quantity)
+}
 
 type PositionBookBody struct {
 	Ret string `json:"ret"`
@@ -20,7 +25,7 @@ func (app *AntApp) PositionBook(DAY string) (*string, error) {
 	requestBody := PositionBookBody{
 		Ret: DAY,
 	}
-	
+
 	jsonBody, err := json.Marshal(requestBody)
 	if err != nil {
 		fmt.Println("Error marshaling request body:", err)

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -51,10 +52,22 @@ func main() {
 		panic(err)
 	}
 
-	response, err := app.Holdings()
+	response, err := app.GetScripQuoteDetails("11536")
 	if err != nil {
 		log.Fatalf("Error making request: %v", err)
 	}
 
-	fmt.Println(response)
+	file, _ := os.Create("response.json")
+	defer file.Close()
+
+	jsonData, err := json.Marshal(response)
+	if err != nil {
+		log.Fatalf("Error marshaling response: %v", err)
+	}
+
+	if _, err := file.Write(jsonData); err != nil {
+		log.Fatalf("Error writing file: %v", err)
+	}
+
+	fmt.Printf("%+v\n", response)
 }

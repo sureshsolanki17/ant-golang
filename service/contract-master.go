@@ -6,9 +6,10 @@ import (
 	"net/http"
 
 	constants "github.com/sureshsolanki17/ant-golang/const"
+	"github.com/sureshsolanki17/ant-golang/model"
 )
 
-func (app *AntApp) ContractMaster() (*[]StockData, error) {
+func (app *AntApp) ContractMaster() (*[]model.StockData, error) {
 	url := constants.ContractURL + app.Exchange
 
 	resp, err := http.Get(url)
@@ -23,7 +24,7 @@ func (app *AntApp) ContractMaster() (*[]StockData, error) {
 	}
 
 	if app.Exchange == "NSE" {
-		var data *ContractMasterNSEResponse
+		var data *model.ContractMasterNSEResponse
 		err = json.Unmarshal(body, &data)
 		if err != nil {
 			return nil, err
@@ -33,7 +34,7 @@ func (app *AntApp) ContractMaster() (*[]StockData, error) {
 	}
 
 	if app.Exchange == "BSE" {
-		var data *ContractMasterBSEResponse
+		var data *model.ContractMasterBSEResponse
 		err = json.Unmarshal(body, &data)
 		if err != nil {
 			return nil, err
@@ -45,7 +46,7 @@ func (app *AntApp) ContractMaster() (*[]StockData, error) {
 	return nil, nil
 }
 
-func (app *AntApp) ContractINDICES(ExchangeType string) (*[]Stock, error) {
+func (app *AntApp) ContractINDICES(ExchangeType string) (*[]model.Stock, error) {
 	url := constants.BaseURL + "INDICES"
 
 	req, err := http.NewRequest("GET", url, nil)
@@ -59,7 +60,7 @@ func (app *AntApp) ContractINDICES(ExchangeType string) (*[]Stock, error) {
 		return nil, err
 	}
 
-	var data *INDICES
+	var data *model.INDICES
 
 	err = json.Unmarshal(body, data)
 	if err != nil {
@@ -77,40 +78,4 @@ func (app *AntApp) ContractINDICES(ExchangeType string) (*[]Stock, error) {
 	}
 
 	return nil, nil
-}
-
-type ContractMasterNSEResponse struct {
-	NSE          []StockData `json:"NSE"`
-	ContractDate string      `json:"contract_date"`
-}
-
-type StockData struct {
-	Exch             string `json:"exch"`
-	ExchangeSegment  string `json:"exchange_segment"`
-	FormattedInsName string `json:"formatted_ins_name"`
-	GroupName        string `json:"group_name"`
-	InstrumentType   string `json:"instrument_type"`
-	LotSize          string `json:"lot_size"`
-	Pdc              string `json:"pdc"`
-	Symbol           string `json:"symbol"`
-	TickSize         string `json:"tick_size"`
-	Token            string `json:"token"`
-	TradingSymbol    string `json:"trading_symbol"`
-}
-
-type ContractMasterBSEResponse struct {
-	BSE          []StockData `json:"BSE"`
-	ContractDate string      `json:"contract_date"`
-}
-
-type INDICES struct {
-	BSE          []Stock `json:"BSE"`
-	MCX          []Stock `json:"MCX"`
-	NSE          []Stock `json:"NSE"`
-	ContractDate string  `json:"contract_date"`
-}
-
-type Stock struct {
-	Symbol string `json:"symbol"`
-	Token  int    `json:"token"`
 }

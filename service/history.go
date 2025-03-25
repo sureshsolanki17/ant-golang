@@ -1,4 +1,4 @@
-package antgolang
+package service
 
 import (
 	"bytes"
@@ -6,12 +6,16 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	constants "github.com/sureshsolanki17/ant-golang/const"
+	"github.com/sureshsolanki17/ant-golang/model"
 )
 
-var baseURI = ""
-
-func (app *AntApp) ChartHistory(token, resolution, fromDate, toDate string) (*ChartHistoryResponse, error) {
-	url := baseURI + URLHistory
+// History gets stock price history for given token, timeframe and dates.
+// token: stock symbol, resolution: "1"(1min)/"D"(daily), fromDate/toDate: date range
+// Returns OHLCV data in ChartHistoryResponse or error if request fails
+func (app *AntApp) History(token, resolution, fromDate, toDate string) (*model.ChartHistoryResponse, error) {
+	url := constants.BaseURL + constants.URLHistory
 
 	requestBody := HistoryBody{
 		Token:      token,
@@ -48,7 +52,7 @@ func (app *AntApp) ChartHistory(token, resolution, fromDate, toDate string) (*Ch
 	if err != nil {
 		return nil, err
 	}
-	var data ChartHistoryResponse
+	var data model.ChartHistoryResponse
 	err = json.Unmarshal(body, &data)
 	if err != nil {
 		return nil, err
@@ -62,17 +66,4 @@ type HistoryBody struct {
 	From       string `json:"from"`
 	To         string `json:"to"`
 	Exchange   string `json:"exchange"`
-}
-
-type ChartHistoryResponse struct {
-	Stat   string `json:"stat"`
-	Result []struct {
-		Volume float64 `json:"volume"`
-		High   float64 `json:"high"`
-		Low    float64 `json:"low"`
-		Time   string  `json:"time"`
-		Close  float64 `json:"close"`
-		Open   float64 `json:"open"`
-	} `json:"result"`
-	Message interface{} `json:"message"`
 }

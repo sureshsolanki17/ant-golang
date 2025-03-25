@@ -19,7 +19,7 @@ const (
 
 	// Order types
 	OrderTypeMarket = "MARKET"
-	OrderTypeLimit  = "LIMIT"
+	OrderTypeLimit  = "L"
 	OrderTypeSL     = "SL"
 	OrderTypeSLM    = "SL-M"
 
@@ -57,12 +57,13 @@ const (
 
 // API endpoints
 const (
-	URLAccountDetails    = "customer/accountDetails"
-	URLGetRmsLimits      = "limits/getRmsLimits"
-	URLPositionBook      = "positionAndHoldings/positionBook"
-	URLHoldings          = "positionAndHoldings/holdings"
-	URLExecutePlaceOrder = "placeOrder/executePlaceOrder"
-	URLHistory           = "chart/history"
-	URLGetAPIEncpkey     = "customer/getAPIEncpkey"
-	URLGetUserSID        = "customer/getUserSID"
+	URLAccountDetails       = "customer/accountDetails"
+	URLGetAPIEncpkey        = "customer/getAPIEncpkey"
+	URLGetUserSID           = "customer/getUserSID"
+	URLGetRmsLimits         = "limits/getRmsLimits"
+	URLPositionBook         = "positionAndHoldings/positionBook"
+	URLHoldings             = "positionAndHoldings/holdings"
+	URLGetScripQuoteDetails = "ScripDetails/getScripQuoteDetails"
+	URLHistory              = "chart/history"
+	URLExecutePlaceOrder    = "placeOrder/executePlaceOrder"
 )

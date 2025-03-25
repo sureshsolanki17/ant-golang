@@ -76,6 +76,9 @@ func (app *AntApp) GetAuthorization() string {
 // Returns the HTTP response and any error encountered.
 // Automatically adds authorization headers if available.
 func (app *AntApp) MakeRequest(method, endpoint string, body string) (*http.Response, error) {
+	if app.GetAuthorization() == "" {
+		return nil, fmt.Errorf("authorization token is not set")
+	}
 	url := fmt.Sprintf("%s/%s", app.BaseURL, strings.TrimLeft(endpoint, "/"))
 
 	req, err := http.NewRequest(method, url, strings.NewReader(body))
