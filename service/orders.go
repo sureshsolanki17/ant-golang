@@ -1,18 +1,82 @@
 package service
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
-	"net/http"
+	"log"
 
 	constants "github.com/sureshsolanki17/ant-golang/const"
-	"github.com/sureshsolanki17/ant-golang/utils"
 )
 
-func (app *AntApp) BuyWithLimit(symbolID, tradingSymbol, price string, quantity int) {
-	utils.PlaceOrder(app, constants.OrderTypeLimit, price, symbolID, tradingSymbol, constants.TransactionTypeBuy, quantity)
+type OrderResponse struct {
+	Stat   string `json:"stat"`
+	NOrdNo string `json:"NordNo"`
+}
+
+type Order struct {
+	Complexty       string `json:"complexty"`
+	DiscQty         string `json:"discqty"`
+	Exchange        string `json:"exch"`
+	PCode           string `json:"pCode"`
+	PriceType       string `json:"prctyp"`
+	Price           string `json:"price"`
+	Quantity        int    `json:"qty"`
+	Retention       string `json:"ret"`
+	SymbolID        string `json:"symbol_id"`
+	TradingSymbol   string `json:"trading_symbol"`
+	TransactionType string `json:"transtype"`
+	TriggerPrice    string `json:"trigPrice"`
+}
+
+func (app *AntApp) Buy(symbolID, tradingSymbol, price, transactionType string, quantity int) (*[]OrderResponse, error) {
+	order := Order{
+		Complexty:       "regular",
+		DiscQty:         "0",
+		Exchange:        app.Exchange,
+		PCode:           "mis",
+		PriceType:       constants.OrderTypeLimit,
+		Price:           price,
+		Quantity:        quantity,
+		Retention:       "DAY",
+		SymbolID:        symbolID,
+		TradingSymbol:   tradingSymbol,
+		TransactionType: transactionType,
+		TriggerPrice:    "",
+	}
+
+	jsonData, err := json.Marshal([]Order{order})
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal order: %v", err)
+	}
+
+	resp, err := app.MakeRequest("POST", constants.URLExecutePlaceOrder, string(jsonData))
+	if err != nil {
+		log.Fatalf("Error placing order: %v", err)
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Error reading response:", err)
+		return nil, err
+	}
+
+	var data *[]OrderResponse
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
+func (app *AntApp) BuyWithLimit(symbolID, tradingSymbol, price string, quantity int) (*[]OrderResponse, error) {
+	return app.Buy(symbolID, tradingSymbol, price, constants.OrderTypeLimit, quantity)
+}
+
+func (app *AntApp) BuyWithMarket(symbolID, tradingSymbol, price string, quantity int) (*[]OrderResponse, error) {
+	return app.Buy(symbolID, tradingSymbol, price, constants.OrderTypeMarket, quantity)
 }
 
 type PositionBookBody struct {
@@ -32,7 +96,7 @@ func (app *AntApp) PositionBook(DAY string) (*string, error) {
 		return nil, err
 	}
 
-	req, err := http.NewRequest("POST", u, bytes.NewBuffer(jsonBody))
+	req, err := app.MakeRequest("POST", u, string(jsonBody))
 	if err != nil {
 		fmt.Println("Error creating request:", err)
 		return nil, err
@@ -42,80 +106,4 @@ func (app *AntApp) PositionBook(DAY string) (*string, error) {
 	req.Header.Set("Authorization", app.Authorization)
 
 	return nil, nil
-}
-
-func (app *AntApp) ExecutePlaceOrder() (*[]ExecutePlaceOrderResponse, error) {
-	url := constants.BaseURL + constants.URLExecutePlaceOrder
-
-	requestBody := ExecutePlaceOrderBody{
-		Discqty:       "",
-		TradingSymbol: "",
-		Exch:          app.Exchange,
-		Transtype:     "",
-		Ret:           "",
-		Prctyp:        "",
-		Qty:           "",
-		SymbolID:      "",
-		Price:         "",
-		TrigPrice:     "",
-		PCode:         "",
-		Complexty:     "",
-		OrderTag:      "",
-	}
-
-	jsonBody, err := json.Marshal(requestBody)
-	if err != nil {
-		fmt.Println("Error marshaling request body:", err)
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonBody))
-	if err != nil {
-		fmt.Println("Error creating request:", err)
-		return nil, err
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", app.Authorization)
-
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		fmt.Println("Error sending request:", err)
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-	var data *[]ExecutePlaceOrderResponse
-	err = json.Unmarshal(body, &data)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
-}
-
-type ExecutePlaceOrderBody struct {
-	Discqty       string `json:"discqty"`
-	TradingSymbol string `json:"trading_symbol"`
-	Exch          string `json:"exch"`
-	Transtype     string `json:"transtype"`
-	Ret           string `json:"ret"`
-	Prctyp        string `json:"prctyp"`
-	Qty           string `json:"qty"`
-	SymbolID      string `json:"symbol_id"`
-	Price         string `json:"price"`
-	TrigPrice     string `json:"trigPrice"`
-	PCode         string `json:"pCode"`
-	Complexty     string `json:"complexty"`
-	OrderTag      string `json:"orderTag"`
-}
-
-type ExecutePlaceOrderResponse struct {
-	Stat   string `json:"stat"`
-	NOrdNo string `json:"NOrdNo"`
 }

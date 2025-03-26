@@ -18,7 +18,7 @@ const (
 	// Products
 
 	// Order types
-	OrderTypeMarket = "MARKET"
+	OrderTypeMarket = "MKT"
 	OrderTypeLimit  = "L"
 	OrderTypeSL     = "SL"
 	OrderTypeSLM    = "SL-M"
