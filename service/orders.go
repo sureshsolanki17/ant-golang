@@ -35,13 +35,13 @@ func (app *AntApp) Buy(symbolID, tradingSymbol, price, transactionType string, q
 		DiscQty:         "0",
 		Exchange:        app.Exchange,
 		PCode:           "mis",
-		PriceType:       constants.OrderTypeLimit,
+		PriceType:       transactionType,
 		Price:           price,
 		Quantity:        quantity,
 		Retention:       "DAY",
 		SymbolID:        symbolID,
 		TradingSymbol:   tradingSymbol,
-		TransactionType: transactionType,
+		TransactionType: constants.TransactionTypeBuy,
 		TriggerPrice:    "",
 	}
 
